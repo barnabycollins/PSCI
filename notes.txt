@@ -1,0 +1,1 @@
+Number of remaining objects is not necessarily correct - is this allowed?
