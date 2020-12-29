@@ -34,3 +34,6 @@
 # ParaView Results
 *.vtp
 *.pvd
+
+# PDFs
+*.pdf
