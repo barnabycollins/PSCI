@@ -25,7 +25,7 @@ profile-and-view: profile-step-1
 	kcachegrind `find . -name "callgrind.out.*" -print0 | xargs -r -0 ls -1 -t | head -1`
 
 get-compiler-report:
-	icpc -qopt-report -vec-report -fopenmp -O3 -xhost --std=c++0x step-2.cpp -o step-2.out
+	icpc -qopt-report -fopenmp -O3 -xhost --std=c++0x step-2.cpp -o step-2.out
 
 clear-results:
 	rm *.vtp *.pvd
