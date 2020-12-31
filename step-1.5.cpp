@@ -65,7 +65,7 @@ double   minDx;
 
 double C;
 
-int* merges;
+int* merged;
 
 /**
  * Set up scenario from the command line.
@@ -82,12 +82,12 @@ void setUp(int argc, char** argv) {
   NumberOfBodies = (argc-4) / 7;
 
   C = 0.01 * NumberOfBodies;
-  
-  merges = new int[NumberOfBodies];
 
   x    = new double*[NumberOfBodies];
   v    = new double*[NumberOfBodies];
   mass = new double [NumberOfBodies];
+
+  merged = new int[NumberOfBodies];
 
   int readArgument = 1;
 
@@ -99,7 +99,7 @@ void setUp(int argc, char** argv) {
     x[i] = new double[3];
     v[i] = new double[3];
 
-    merges[i] = -1;
+    merged[i] = -1;
 
     x[i][0] = std::stof(argv[readArgument]); readArgument++;
     x[i][1] = std::stof(argv[readArgument]); readArgument++;
@@ -207,23 +207,20 @@ void updateBody() {
 
   double** distances = new double*[NumberOfBodies];
 
+  int* toMerge = new int[NumberOfBodies];
+
   // Compute forces for each particle
   for (int i=0; i<NumberOfBodies; i++) {
     force[i] = new double*[i];
     distances[i] = new double[i];
-
-    // If this particle has been merged, don't compute its force
-    if (merges[i] != -1) {
-      continue;
-    }
+    toMerge[i] = -1;
 
     for (int j=0; j<i; j++) {
       force[i][j] = new double[3];
 
       // Filter out the current particle and merged particles
-      if (merges[j] == -1) {
+      if (toMerge[j] == -1) {
         // Compute Euclidian distances to other particles (this is just pythag)
-        // Could stand to be pre-computed
         distances[i][j] = sqrt(
           (x[i][0]-x[j][0]) * (x[i][0]-x[j][0]) +
           (x[i][1]-x[j][1]) * (x[i][1]-x[j][1]) +
@@ -231,13 +228,13 @@ void updateBody() {
         );
 
         // If particles should be merged, merge them
-        /*if (distance < (C * (mass[i] + mass[j]))) {
-          merges[j] = i;
+        if (distances[i][j] < (C * (mass[i] + mass[j]))) {
+          toMerge[i] = j;
 
           // Merge any particles that were merged to k into i
-          for (int k=0; k<NumberOfBodies; k++) {
-            if (merges[k] == j) {
-              merges[k] = i;
+          /*for (int k=0; k<NumberOfBodies; k++) {
+            if (toMerge[k] == j) {
+              toMerge[k] = i;
             }
           }
 
@@ -249,17 +246,51 @@ void updateBody() {
 
           x[i][0] = (mass[i] * x[i][0] + mass[j] * x[j][0]) / (mass[i] + mass[j]);
           x[i][1] = (mass[i] * x[i][1] + mass[j] * x[j][1]) / (mass[i] + mass[j]);
-          x[i][2] = (mass[i] * x[i][2] + mass[j] * x[j][2]) / (mass[i] + mass[j]);
+          x[i][2] = (mass[i] * x[i][2] + mass[j] * x[j][2]) / (mass[i] + mass[j]);*/
 
           continue;
-        }*/
+        }
 
         // x,y,z forces acting on particle i
-        force[i][j][0] += (x[j][0]-x[i][0]) * mass[j]*mass[i] / distances[i][j] / distances[i][j] / distances[i][j] ;
-        force[i][j][1] += (x[j][1]-x[i][1]) * mass[j]*mass[i] / distances[i][j] / distances[i][j] / distances[i][j] ;
-        force[i][j][2] += (x[j][2]-x[i][2]) * mass[j]*mass[i] / distances[i][j] / distances[i][j] / distances[i][j] ;
+        force[i][j][0] = (x[j][0]-x[i][0]) * mass[j]*mass[i] / distances[i][j] / distances[i][j] / distances[i][j] ;
+        force[i][j][1] = (x[j][1]-x[i][1]) * mass[j]*mass[i] / distances[i][j] / distances[i][j] / distances[i][j] ;
+        force[i][j][2] = (x[j][2]-x[i][2]) * mass[j]*mass[i] / distances[i][j] / distances[i][j] / distances[i][j] ;
 
         minDx = std::min( minDx,distances[i][j] );
+      }
+    }
+  }
+
+  bool foundMerge = true;
+
+  while (foundMerge) {
+    foundMerge = false;
+    for (int j=0; j<NumberOfBodies; j++) {
+      if (toMerge[j] != -1) {
+        int i = toMerge[j];
+        merged[j] = i;
+
+        toMerge[j] = -1;
+
+        // Merge any particles that were merged to j into i
+        for (int k=0; k<NumberOfBodies; k++) {
+          if (toMerge[k] == j) {
+            toMerge[k] = i;
+          }
+        }
+
+        v[i][0] = mass[i] * v[i][0] / (mass[i] + mass[j])  +  mass[j] * v[j][0] / (mass[i] + mass[j]);
+        v[i][1] = mass[i] * v[i][1] / (mass[i] + mass[j])  +  mass[j] * v[j][1] / (mass[i] + mass[j]);
+        v[i][2] = mass[i] * v[i][2] / (mass[i] + mass[j])  +  mass[j] * v[j][2] / (mass[i] + mass[j]);
+
+        mass[i] = mass[i] + mass[j];
+
+        x[i][0] = (mass[i] * x[i][0] + mass[j] * x[j][0]) / (mass[i] + mass[j]);
+        x[i][1] = (mass[i] * x[i][1] + mass[j] * x[j][1]) / (mass[i] + mass[j]);
+        x[i][2] = (mass[i] * x[i][2] + mass[j] * x[j][2]) / (mass[i] + mass[j]);
+
+        foundMerge = true;
+        break;
       }
     }
   }
@@ -267,7 +298,7 @@ void updateBody() {
 
 
   for (int i=0; i<NumberOfBodies; i++) {
-    //if (merges[i] == -1) {
+    if (merged[i] == -1) {
       x[i][0] = x[i][0] + timeStepSize * v[i][0];
       x[i][1] = x[i][1] + timeStepSize * v[i][1];
       x[i][2] = x[i][2] + timeStepSize * v[i][2];
@@ -277,16 +308,23 @@ void updateBody() {
         v[i][1] = v[i][1] + timeStepSize * force[i][j][1] / mass[i];
         v[i][2] = v[i][2] + timeStepSize * force[i][j][2] / mass[i];
 
-        v[j][0] = v[j][0] - timeStepSize * force[i][j][0] / mass[j];
-        v[j][1] = v[j][1] - timeStepSize * force[i][j][1] / mass[j];
-        v[j][2] = v[j][2] - timeStepSize * force[i][j][2] / mass[j];
+        if (merged[j] == -1) {
+          v[j][0] = v[j][0] - timeStepSize * force[i][j][0] / mass[j];
+          v[j][1] = v[j][1] - timeStepSize * force[i][j][1] / mass[j];
+          v[j][2] = v[j][2] - timeStepSize * force[i][j][2] / mass[j];
+        }
+        else {
+          x[j][0] = x[merged[j]][0];
+          x[j][1] = x[merged[j]][1];
+          x[j][2] = x[merged[j]][2];
+        }
       }
-    /*}
+    }
     else {
-      x[i][0] = x[merges[i]][0];
-      x[i][1] = x[merges[i]][1];
-      x[i][2] = x[merges[i]][2];
-    }*/
+      x[i][0] = x[merged[i]][0];
+      x[i][1] = x[merged[i]][1];
+      x[i][2] = x[merged[i]][2];
+    }
   }
 
   for (int i=0; i<NumberOfBodies; i++) {
