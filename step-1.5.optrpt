@@ -18,64 +18,62 @@ Begin optimization report for: main(int, char **)
 
     Report from: Interprocedural optimizations [ipo]
 
-INLINE REPORT: (main(int, char **)) [1] step-1.5.cpp(308,33)
-  -> (310,15) std::operator<<<char, std::char_traits<char>, std::allocator<char>>(std::basic_ostream<char, std::char_traits<char>> &, const std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> &)
-  -> INLINE: (310,28) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::~basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *)
+INLINE REPORT: (main(int, char **)) [1] step-1.5.cpp(346,33)
+  -> (348,15) std::operator<<<char, std::char_traits<char>, std::allocator<char>>(std::basic_ostream<char, std::char_traits<char>> &, const std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> &)
+  -> INLINE: (348,28) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::~basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
-  -> INLINE: (310,28) std::operator+<char, std::char_traits<char>, std::allocator<char>>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *, const char *, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> &&)
+  -> INLINE: (348,28) std::operator+<char, std::char_traits<char>, std::allocator<char>>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *, const char *, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> &&)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
-  -> INLINE: (310,42) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::~basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *)
+  -> INLINE: (348,42) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::~basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
-  -> INLINE: (310,42) std::allocator<char>::~allocator(std::allocator<char> *)
+  -> DELETED: (348,42) std::allocator<char>::~allocator(std::allocator<char> *)
+  -> INLINE: (348,42) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *, const char *, const std::allocator<char> &)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
-  -> INLINE: (310,42) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *, const char *, const std::allocator<char> &)
+  -> INLINE: (348,42) std::allocator<char>::allocator(std::allocator<char> *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
-  -> INLINE: (310,42) std::allocator<char>::allocator(std::allocator<char> *)
+  -> INLINE: (348,51) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::~basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
-  -> INLINE: (310,51) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::~basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *)
+  -> INLINE: (348,51) std::operator+<char, std::char_traits<char>, std::allocator<char>>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> &&, const char *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
-  -> INLINE: (310,51) std::operator+<char, std::char_traits<char>, std::allocator<char>>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> &&, const char *)
+  -> (348,87) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
+  -> (349,15) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
+  -> (349,111) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
+  -> (350,15) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
+  -> (350,65) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
+  -> (351,15) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
+  -> (351,65) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
+  -> (352,15) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
+  -> (353,15) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
+  -> (353,30) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
+  -> (354,15) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
+  -> (354,153) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
+  -> (355,15) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
+  -> (355,146) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
+  -> (356,15) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
+  -> (356,179) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
+  -> (357,15) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
+  -> (357,227) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
+  -> (358,15) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
+  -> (359,15) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
+  -> DELETED: (359,66) std::allocator<char>::~allocator(std::allocator<char> *)
+  -> INLINE: (359,66) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::~basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
-  -> (310,87) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
-  -> (311,15) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
-  -> (311,111) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
-  -> (312,15) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
-  -> (312,65) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
-  -> (313,15) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
-  -> (313,65) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
-  -> (314,15) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
-  -> (315,15) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
-  -> (315,30) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
-  -> (316,15) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
-  -> (316,153) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
-  -> (317,15) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
-  -> (317,146) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
-  -> (318,15) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
-  -> (318,179) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
-  -> (319,15) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
-  -> (319,227) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
-  -> (320,15) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
-  -> (321,15) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
-  -> INLINE: (321,66) std::allocator<char>::~allocator(std::allocator<char> *)
+  -> INLINE: (359,66) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::~basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
-  -> INLINE: (321,66) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::~basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *)
+  -> INLINE: (359,66) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::~basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
-  -> INLINE: (321,66) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::~basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *)
-     {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
-  -> INLINE: (321,66) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::~basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *)
-     {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
-  -> (321,66) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
-  -> (326,15) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
-  -> (326,105) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
-  -> (327,15) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
-  -> (327,33) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
-  -> (327,78) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
-  -> (328,15) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
-  -> (328,64) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
-  -> (332,13) std::operator<<<char, std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, std::_Setprecision)
-  -> INLINE: (332,34) std::setprecision(int)
-  -> (334,3) setUp(int, char **)
-  -> INLINE: (336,3) openParaviewVideoFile()
+  -> (359,66) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
+  -> (364,15) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
+  -> (364,105) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
+  -> (365,15) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
+  -> (365,33) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
+  -> (365,78) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
+  -> (366,15) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
+  -> (366,64) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
+  -> (370,13) std::operator<<<char, std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, std::_Setprecision)
+  -> INLINE: (370,34) std::setprecision(int)
+  -> (372,3) setUp(int, char **)
+  -> INLINE: (374,3) openParaviewVideoFile()
     -> INLINE: (140,13) std::basic_ofstream<char, std::char_traits<char>>::open(std::basic_ofstream<char, std::char_traits<char>> *, const char *, std::ios_base::openmode)
        {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
     -> (141,13) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
@@ -83,34 +81,32 @@ INLINE REPORT: (main(int, char **)) [1] step-1.5.cpp(308,33)
     -> (142,13) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
     -> (142,129) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
     -> (143,13) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
-  -> (340,5) printParaviewSnapshot()
-  -> (341,15) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
-  -> (341,42) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
-  -> INLINE: (347,5) updateBody()
-    -> INLINE: (262,17) std::min<double>(const double &, const double &)
-    -> INLINE: (293,12) std::max<double>(const double &, const double &)
-  -> (350,7) printParaviewSnapshot()
-  -> (351,17) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
-  -> (352,11) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
-  -> (353,11) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
-  -> (353,31) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, double)
-  -> (354,5) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
-  -> (354,25) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, double)
-  -> (355,5) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
-  -> (355,25) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, double)
-  -> (356,5) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
-  -> (356,25) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, double)
-  -> (357,5) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
-  -> (363,13) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
-  -> (363,66) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
-  -> (364,13) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
-  -> (364,55) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, double)
-  -> (364,66) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
-  -> (364,74) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, double)
-  -> (364,85) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
-  -> (364,93) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, double)
-  -> (364,104) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
-  -> INLINE: (366,3) closeParaviewVideoFile()
+  -> (378,5) printParaviewSnapshot()
+  -> (379,15) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
+  -> (379,42) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
+  -> (385,5) updateBody()
+  -> (388,7) printParaviewSnapshot()
+  -> (389,17) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
+  -> (390,11) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
+  -> (391,11) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
+  -> (391,31) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, double)
+  -> (392,5) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
+  -> (392,25) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, double)
+  -> (393,5) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
+  -> (393,25) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, double)
+  -> (394,5) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
+  -> (394,25) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, double)
+  -> (395,5) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
+  -> (401,13) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
+  -> (401,66) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
+  -> (402,13) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
+  -> (402,55) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, double)
+  -> (402,66) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
+  -> (402,74) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, double)
+  -> (402,85) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
+  -> (402,93) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, double)
+  -> (402,104) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
+  -> INLINE: (404,3) closeParaviewVideoFile()
     -> (154,13) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
     -> (155,13) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
     -> (155,29) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
@@ -119,34 +115,9 @@ INLINE REPORT: (main(int, char **)) [1] step-1.5.cpp(308,33)
     Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
 
 
-LOOP BEGIN at step-1.5.cpp(211,3) inlined into step-1.5.cpp(347,5)
-   remark #15541: outer loop was not auto-vectorized: consider using SIMD directive
-
-   LOOP BEGIN at step-1.5.cpp(220,5) inlined into step-1.5.cpp(347,5)
-      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
-   LOOP END
-LOOP END
-
-LOOP BEGIN at step-1.5.cpp(269,3) inlined into step-1.5.cpp(347,5)
-   remark #15541: outer loop was not auto-vectorized: consider using SIMD directive
-
-   LOOP BEGIN at step-1.5.cpp(275,7) inlined into step-1.5.cpp(347,5)
-      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
-      remark #15346: vector dependence: assumed OUTPUT dependence between v[i][0] (276:9) and v[j][2] (282:9)
-   LOOP END
-LOOP END
-
-LOOP BEGIN at step-1.5.cpp(292,3) inlined into step-1.5.cpp(347,5)
-   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
-   remark #15346: vector dependence: assumed ANTI dependence between v[i][0] (293:5) and maxV (293:5)
-LOOP END
-
-
-Non-optimizable loops:
-
-
-LOOP BEGIN at step-1.5.cpp(346,3)
-   remark #15543: loop was not vectorized: loop with function call not considered an optimization candidate.
+LOOP BEGIN at step-1.5.cpp(384,3)
+   remark #15523: loop was not vectorized: loop control variable timeStepCounter was found, but loop iteration count cannot be computed before executing the loop
+   remark #25456: Number of Array Refs Scalar Replaced In Loop: 1
 LOOP END
 
     Report from: Code generation optimizations [cg]
@@ -154,28 +125,63 @@ LOOP END
 /ddn/apps/Cluster-Apps/gcc/8.2.0/include/c++/8.2.0/bits/char_traits.h(350,33):remark #34026: call to memcpy implemented as a call to optimized library version
 /ddn/apps/Cluster-Apps/gcc/8.2.0/include/c++/8.2.0/bits/char_traits.h(350,33):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (1, 0), and destination (alignment, offset): (16, 0)
 /ddn/apps/Cluster-Apps/gcc/8.2.0/include/c++/8.2.0/bits/char_traits.h(350,33):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (1, 0), and destination (alignment, offset): (16, 0)
-step-1.5.cpp(308,33):remark #34051: REGISTER ALLOCATION : [main] step-1.5.cpp:308
+step-1.5.cpp(346,33):remark #34051: REGISTER ALLOCATION : [main] step-1.5.cpp:346
 
     Hardware registers
         Reserved     :    2[ rsp rip]
         Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
         Callee-save  :    6[ rbx rbp r12-r15]
-        Assigned     :   27[ rax rdx rcx rbx rsi rdi r8-r15 zmm0-zmm12]
+        Assigned     :   12[ rax rdx rcx rsi rdi r8-r10 r12 r15 zmm0-zmm1]
         
     Routine temporaries
-        Total         :     572
-            Global    :     180
-            Local     :     392
-        Regenerable   :     155
-        Spilled       :       6
+        Total         :     443
+            Global    :     151
+            Local     :     292
+        Regenerable   :     156
+        Spilled       :       2
         
     Routine stack
         Variables     :     116 bytes*
-            Reads     :      16 [6.69e-02 ~ 0.1%]
-            Writes    :      21 [7.04e-02 ~ 0.1%]
-        Spills        :      32 bytes*
-            Reads     :       4 [9.72e-02 ~ 0.1%]
-            Writes    :       4 [6.52e-02 ~ 0.1%]
+            Reads     :      16 [2.80e-01 ~ 0.3%]
+            Writes    :      21 [3.77e-01 ~ 0.4%]
+        Spills        :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+Begin optimization report for: std::char_traits<char>::length(const std::char_traits<char>::char_type *)
+
+    Report from: Code generation optimizations [cg]
+
+/ddn/apps/Cluster-Apps/gcc/8.2.0/include/c++/8.2.0/bits/char_traits.h(315,7):remark #34051: REGISTER ALLOCATION : [_ZNSt11char_traitsIcE6lengthEPKc] /ddn/apps/Cluster-Apps/gcc/8.2.0/include/c++/8.2.0/bits/char_traits.h:315
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :    3[ rax rdx rdi]
+        
+    Routine temporaries
+        Total         :      12
+            Global    :       7
+            Local     :       5
+        Regenerable   :       0
+        Spilled       :       0
+        
+    Routine stack
+        Variables     :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+        Spills        :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
     
     Notes
     
@@ -189,7 +195,7 @@ Begin optimization report for: printParaviewSnapshot()
 
     Report from: Interprocedural optimizations [ipo]
 
-INLINE REPORT: (printParaviewSnapshot()) [2] step-1.5.cpp(164,30)
+INLINE REPORT: (printParaviewSnapshot()) [6] step-1.5.cpp(164,30)
   -> INLINE: (167,21) std::__cxx11::basic_stringstream<char, std::char_traits<char>, std::allocator<char>>::~basic_stringstream(std::__cxx11::basic_stringstream<char, std::char_traits<char>, std::allocator<char>> *const)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
   -> INLINE: (167,21) std::__cxx11::basic_stringstream<char, std::char_traits<char>, std::allocator<char>>::basic_stringstream(std::__cxx11::basic_stringstream<char, std::char_traits<char>, std::allocator<char>> *const, std::ios_base::openmode)
@@ -269,8 +275,6 @@ Assume directive not useful: removing
 
 /ddn/apps/Cluster-Apps/gcc/8.2.0/include/c++/8.2.0/bits/basic_string.h(689:7)::_Z21printParaviewSnapshotv:  Assume directive not useful: removing
 
-/ddn/apps/Cluster-Apps/gcc/8.2.0/include/c++/8.2.0/bits/basic_string.h(690:5)::_Z21printParaviewSnapshotv:  Assume directive not useful: removing
-
 /ddn/apps/Cluster-Apps/gcc/8.2.0/include/c++/8.2.0/bits/basic_string.h(676:7)::_Z21printParaviewSnapshotv:  Assume directive not useful: removing
 
 /ddn/apps/Cluster-Apps/gcc/8.2.0/include/c++/8.2.0/bits/basic_string.h(677:15)::_Z21printParaviewSnapshotv:  Assume directive not useful: removing
@@ -295,8 +299,6 @@ Assume directive not useful: removing
 
 /ddn/apps/Cluster-Apps/gcc/8.2.0/include/c++/8.2.0/bits/basic_string.h(689:7)::_Z21printParaviewSnapshotv:  Assume directive not useful: removing
 
-/ddn/apps/Cluster-Apps/gcc/8.2.0/include/c++/8.2.0/bits/basic_string.h(690:5)::_Z21printParaviewSnapshotv:  Assume directive not useful: removing
-
 /ddn/apps/Cluster-Apps/gcc/8.2.0/include/c++/8.2.0/bits/basic_string.h(676:7)::_Z21printParaviewSnapshotv:  Assume directive not useful: removing
 
 /ddn/apps/Cluster-Apps/gcc/8.2.0/include/c++/8.2.0/bits/basic_string.h(677:15)::_Z21printParaviewSnapshotv:  Assume directive not useful: removing
@@ -309,12 +311,8 @@ Assume directive not useful: removing
     Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
 
 
-
-Non-optimizable loops:
-
-
 LOOP BEGIN at step-1.5.cpp(177,3)
-   remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ step-1.5.cpp(178,9) ]
+   remark #15523: loop was not vectorized: loop control variable i was found, but loop iteration count cannot be computed before executing the loop
 LOOP END
 
     Report from: Code generation optimizations [cg]
@@ -328,16 +326,16 @@ step-1.5.cpp(164,30):remark #34051: REGISTER ALLOCATION : [_Z21printParaviewSnap
         Assigned     :   14[ rax rdx rcx rbx rbp rsi rdi r8-r9 r12-r15 zmm0]
         
     Routine temporaries
-        Total         :     556
+        Total         :     548
             Global    :     104
-            Local     :     452
-        Regenerable   :     201
+            Local     :     444
+        Regenerable   :     193
         Spilled       :       6
         
     Routine stack
         Variables     :     968 bytes*
-            Reads     :      45 [3.00e+00 ~ 3.0%]
-            Writes    :     122 [1.13e+01 ~ 11.3%]
+            Reads     :      45 [2.90e+00 ~ 2.9%]
+            Writes    :     122 [1.39e+01 ~ 13.9%]
         Spills        :       0 bytes*
             Reads     :       0 [0.00e+00 ~ 0.0%]
             Writes    :       0 [0.00e+00 ~ 0.0%]
@@ -385,32 +383,89 @@ Begin optimization report for: std::__cxx11::basic_stringbuf<char, std::char_tra
 
 ===========================================================================
 
-Begin optimization report for: std::char_traits<char>::length(const std::char_traits<char>::char_type *)
+Begin optimization report for: updateBody()
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (updateBody()) [20] step-1.5.cpp(202,19)
+  -> INLINE: (259,17) std::min<double>(const double &, const double &)
+  -> INLINE: (331,12) std::max<double>(const double &, const double &)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at step-1.5.cpp(213,3)
+   remark #15523: loop was not vectorized: loop control variable i was found, but loop iteration count cannot be computed before executing the loop
+
+   LOOP BEGIN at step-1.5.cpp(218,5)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   LOOP END
+LOOP END
+
+LOOP BEGIN at step-1.5.cpp(276,9)
+<Peeled loop for vectorization>
+LOOP END
+
+LOOP BEGIN at step-1.5.cpp(276,9)
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at step-1.5.cpp(276,9)
+<Remainder loop for vectorization>
+LOOP END
+
+LOOP BEGIN at step-1.5.cpp(300,3)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed OUTPUT dependence between x[i][0] (302:7) and x[i][2] (326:7)
+
+   LOOP BEGIN at step-1.5.cpp(306,7)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+      remark #15346: vector dependence: assumed OUTPUT dependence between v[i][0] (307:9) and x[j][2] (319:11)
+   LOOP END
+LOOP END
+
+LOOP BEGIN at step-1.5.cpp(330,3)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed ANTI dependence between v[i][0] (331:5) and maxV (331:5)
+LOOP END
+
+
+Non-optimizable loops:
+
+
+LOOP BEGIN at step-1.5.cpp(266,3)
+   remark #15536: loop was not vectorized: inner loop throttling prevents vectorization of this outer loop. Refer to inner loop message for more details.   [ step-1.5.cpp(268,5) ]
+
+   LOOP BEGIN at step-1.5.cpp(268,5)
+      remark #15522: loop was not vectorized: loop control flow is too complex. Try using canonical loop form from OpenMP specification
+   LOOP END
+LOOP END
 
     Report from: Code generation optimizations [cg]
 
-/ddn/apps/Cluster-Apps/gcc/8.2.0/include/c++/8.2.0/bits/char_traits.h(315,7):remark #34051: REGISTER ALLOCATION : [_ZNSt11char_traitsIcE6lengthEPKc] /ddn/apps/Cluster-Apps/gcc/8.2.0/include/c++/8.2.0/bits/char_traits.h:315
+step-1.5.cpp(202,19):remark #34051: REGISTER ALLOCATION : [_Z10updateBodyv] step-1.5.cpp:202
 
     Hardware registers
         Reserved     :    2[ rsp rip]
         Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
         Callee-save  :    6[ rbx rbp r12-r15]
-        Assigned     :    3[ rax rdx rdi]
+        Assigned     :   30[ rax rdx rcx rbx rsi rdi r8-r15 zmm0-zmm15]
         
     Routine temporaries
-        Total         :      12
-            Global    :       7
-            Local     :       5
-        Regenerable   :       0
-        Spilled       :       0
+        Total         :     223
+            Global    :      62
+            Local     :     161
+        Regenerable   :       5
+        Spilled       :       9
         
     Routine stack
         Variables     :       0 bytes*
             Reads     :       0 [0.00e+00 ~ 0.0%]
             Writes    :       0 [0.00e+00 ~ 0.0%]
-        Spills        :       0 bytes*
-            Reads     :       0 [0.00e+00 ~ 0.0%]
-            Writes    :       0 [0.00e+00 ~ 0.0%]
+        Spills        :      32 bytes*
+            Reads     :       6 [9.79e-01 ~ 1.0%]
+            Writes    :       4 [4.37e-01 ~ 0.4%]
     
     Notes
     
@@ -460,142 +515,122 @@ Begin optimization report for: setUp(int, char **)
     Report from: Interprocedural optimizations [ipo]
 
 INLINE REPORT: (setUp(int, char **)) [24] step-1.5.cpp(81,35)
-  -> INLINE: (94,3) std::allocator<char>::~allocator(std::allocator<char> *)
-     {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
+  -> DELETED: (94,3) std::allocator<char>::~allocator(std::allocator<char> *)
   -> INLINE: (94,3) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::~basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
   -> INLINE: (94,18) std::__cxx11::stof(const std::__cxx11::string &, std::size_t *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
   -> INLINE: (94,28) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::~basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
-  -> INLINE: (94,28) std::allocator<char>::~allocator(std::allocator<char> *)
-     {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
+  -> DELETED: (94,28) std::allocator<char>::~allocator(std::allocator<char> *)
   -> INLINE: (94,28) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *, const char *, const std::allocator<char> &)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
   -> INLINE: (94,28) std::allocator<char>::allocator(std::allocator<char> *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
-  -> INLINE: (95,3) std::allocator<char>::~allocator(std::allocator<char> *)
-     {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
+  -> DELETED: (95,3) std::allocator<char>::~allocator(std::allocator<char> *)
   -> INLINE: (95,3) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::~basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
   -> INLINE: (95,18) std::__cxx11::stof(const std::__cxx11::string &, std::size_t *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
   -> INLINE: (95,28) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::~basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
-  -> INLINE: (95,28) std::allocator<char>::~allocator(std::allocator<char> *)
-     {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
+  -> DELETED: (95,28) std::allocator<char>::~allocator(std::allocator<char> *)
   -> INLINE: (95,28) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *, const char *, const std::allocator<char> &)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
   -> INLINE: (95,28) std::allocator<char>::allocator(std::allocator<char> *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
-  -> INLINE: (96,3) std::allocator<char>::~allocator(std::allocator<char> *)
-     {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
+  -> DELETED: (96,3) std::allocator<char>::~allocator(std::allocator<char> *)
   -> INLINE: (96,3) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::~basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
   -> INLINE: (96,18) std::__cxx11::stof(const std::__cxx11::string &, std::size_t *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
   -> INLINE: (96,28) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::~basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
-  -> INLINE: (96,28) std::allocator<char>::~allocator(std::allocator<char> *)
-     {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
+  -> DELETED: (96,28) std::allocator<char>::~allocator(std::allocator<char> *)
   -> INLINE: (96,28) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *, const char *, const std::allocator<char> &)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
   -> INLINE: (96,28) std::allocator<char>::allocator(std::allocator<char> *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
   -> INLINE: (104,5) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::~basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
-  -> INLINE: (104,5) std::allocator<char>::~allocator(std::allocator<char> *)
-     {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
+  -> DELETED: (104,5) std::allocator<char>::~allocator(std::allocator<char> *)
   -> INLINE: (104,15) std::__cxx11::stof(const std::__cxx11::string &, std::size_t *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
   -> INLINE: (104,25) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::~basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
-  -> INLINE: (104,25) std::allocator<char>::~allocator(std::allocator<char> *)
-     {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
+  -> DELETED: (104,25) std::allocator<char>::~allocator(std::allocator<char> *)
   -> INLINE: (104,25) std::allocator<char>::allocator(std::allocator<char> *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
   -> INLINE: (104,25) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *, const char *, const std::allocator<char> &)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
   -> INLINE: (105,5) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::~basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
-  -> INLINE: (105,5) std::allocator<char>::~allocator(std::allocator<char> *)
-     {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
+  -> DELETED: (105,5) std::allocator<char>::~allocator(std::allocator<char> *)
   -> INLINE: (105,15) std::__cxx11::stof(const std::__cxx11::string &, std::size_t *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
   -> INLINE: (105,25) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::~basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
-  -> INLINE: (105,25) std::allocator<char>::~allocator(std::allocator<char> *)
-     {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
+  -> DELETED: (105,25) std::allocator<char>::~allocator(std::allocator<char> *)
   -> INLINE: (105,25) std::allocator<char>::allocator(std::allocator<char> *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
   -> INLINE: (105,25) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *, const char *, const std::allocator<char> &)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
   -> INLINE: (106,5) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::~basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
-  -> INLINE: (106,5) std::allocator<char>::~allocator(std::allocator<char> *)
-     {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
+  -> DELETED: (106,5) std::allocator<char>::~allocator(std::allocator<char> *)
   -> INLINE: (106,15) std::__cxx11::stof(const std::__cxx11::string &, std::size_t *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
   -> INLINE: (106,25) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::~basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
-  -> INLINE: (106,25) std::allocator<char>::~allocator(std::allocator<char> *)
-     {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
+  -> DELETED: (106,25) std::allocator<char>::~allocator(std::allocator<char> *)
   -> INLINE: (106,25) std::allocator<char>::allocator(std::allocator<char> *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
   -> INLINE: (106,25) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *, const char *, const std::allocator<char> &)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
   -> INLINE: (108,5) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::~basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
-  -> INLINE: (108,5) std::allocator<char>::~allocator(std::allocator<char> *)
-     {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
+  -> DELETED: (108,5) std::allocator<char>::~allocator(std::allocator<char> *)
   -> INLINE: (108,15) std::__cxx11::stof(const std::__cxx11::string &, std::size_t *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
   -> INLINE: (108,25) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::~basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
-  -> INLINE: (108,25) std::allocator<char>::~allocator(std::allocator<char> *)
-     {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
+  -> DELETED: (108,25) std::allocator<char>::~allocator(std::allocator<char> *)
   -> INLINE: (108,25) std::allocator<char>::allocator(std::allocator<char> *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
   -> INLINE: (108,25) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *, const char *, const std::allocator<char> &)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
   -> INLINE: (109,5) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::~basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
-  -> INLINE: (109,5) std::allocator<char>::~allocator(std::allocator<char> *)
-     {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
+  -> DELETED: (109,5) std::allocator<char>::~allocator(std::allocator<char> *)
   -> INLINE: (109,15) std::__cxx11::stof(const std::__cxx11::string &, std::size_t *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
   -> INLINE: (109,25) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::~basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
-  -> INLINE: (109,25) std::allocator<char>::~allocator(std::allocator<char> *)
-     {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
+  -> DELETED: (109,25) std::allocator<char>::~allocator(std::allocator<char> *)
   -> INLINE: (109,25) std::allocator<char>::allocator(std::allocator<char> *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
   -> INLINE: (109,25) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *, const char *, const std::allocator<char> &)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
   -> INLINE: (110,5) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::~basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
-  -> INLINE: (110,5) std::allocator<char>::~allocator(std::allocator<char> *)
-     {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
+  -> DELETED: (110,5) std::allocator<char>::~allocator(std::allocator<char> *)
   -> INLINE: (110,15) std::__cxx11::stof(const std::__cxx11::string &, std::size_t *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
   -> INLINE: (110,25) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::~basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
-  -> INLINE: (110,25) std::allocator<char>::~allocator(std::allocator<char> *)
-     {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
+  -> DELETED: (110,25) std::allocator<char>::~allocator(std::allocator<char> *)
   -> INLINE: (110,25) std::allocator<char>::allocator(std::allocator<char> *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
   -> INLINE: (110,25) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *, const char *, const std::allocator<char> &)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
   -> INLINE: (112,5) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::~basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
-  -> INLINE: (112,5) std::allocator<char>::~allocator(std::allocator<char> *)
-     {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
+  -> DELETED: (112,5) std::allocator<char>::~allocator(std::allocator<char> *)
   -> INLINE: (112,15) std::__cxx11::stof(const std::__cxx11::string &, std::size_t *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
   -> INLINE: (112,25) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::~basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
-  -> INLINE: (112,25) std::allocator<char>::~allocator(std::allocator<char> *)
-     {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
+  -> DELETED: (112,25) std::allocator<char>::~allocator(std::allocator<char> *)
   -> INLINE: (112,25) std::allocator<char>::allocator(std::allocator<char> *)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
   -> INLINE: (112,25) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>> *, const char *, const std::allocator<char> &)
@@ -616,12 +651,8 @@ INLINE REPORT: (setUp(int, char **)) [24] step-1.5.cpp(81,35)
     Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
 
 
-
-Non-optimizable loops:
-
-
 LOOP BEGIN at step-1.5.cpp(98,3)
-   remark #15333: loop was not vectorized: exception handling for a call prevents vectorization   [ /ddn/apps/Cluster-Apps/gcc/8.2.0/include/c++/8.2.0/bits/basic_string.tcc(219,14) ]
+   remark #15523: loop was not vectorized: loop control variable i was found, but loop iteration count cannot be computed before executing the loop
 LOOP END
 
     Report from: Code generation optimizations [cg]
@@ -642,13 +673,13 @@ step-1.5.cpp(81,35):remark #34051: REGISTER ALLOCATION : [_Z5setUpiPPc] step-1.5
         Reserved     :    2[ rsp rip]
         Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
         Callee-save  :    6[ rbx rbp r12-r15]
-        Assigned     :   13[ rax rdx rcx rbx rbp rsi rdi r8 r12-r15 zmm0]
+        Assigned     :   13[ rax rdx rcx rbx rbp rsi rdi r12-r15 zmm0-zmm1]
         
     Routine temporaries
-        Total         :     705
+        Total         :     665
             Global    :     185
-            Local     :     520
-        Regenerable   :     255
+            Local     :     480
+        Regenerable   :     215
         Spilled       :      13
         
     Routine stack
@@ -658,41 +689,6 @@ step-1.5.cpp(81,35):remark #34051: REGISTER ALLOCATION : [_Z5setUpiPPc] step-1.5
         Spills        :      56 bytes*
             Reads     :      20 [2.93e+00 ~ 2.9%]
             Writes    :       8 [1.36e+00 ~ 1.4%]
-    
-    Notes
-    
-        *Non-overlapping variables and spills may share stack space,
-         so the total stack size might be less than this.
-    
-
-===========================================================================
-
-Begin optimization report for: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::_Alloc_hider::~_Alloc_hider(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>::_Alloc_hider *)
-
-    Report from: Code generation optimizations [cg]
-
-/ddn/apps/Cluster-Apps/gcc/8.2.0/include/c++/8.2.0/bits/basic_string.h(139,14):remark #34051: REGISTER ALLOCATION : [_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE12_Alloc_hiderD1Ev] /ddn/apps/Cluster-Apps/gcc/8.2.0/include/c++/8.2.0/bits/basic_string.h:139
-
-    Hardware registers
-        Reserved     :    2[ rsp rip]
-        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
-        Callee-save  :    6[ rbx rbp r12-r15]
-        Assigned     :    1[ rdi]
-        
-    Routine temporaries
-        Total         :       7
-            Global    :       0
-            Local     :       7
-        Regenerable   :       0
-        Spilled       :       0
-        
-    Routine stack
-        Variables     :       0 bytes*
-            Reads     :       0 [0.00e+00 ~ 0.0%]
-            Writes    :       0 [0.00e+00 ~ 0.0%]
-        Spills        :       0 bytes*
-            Reads     :       0 [0.00e+00 ~ 0.0%]
-            Writes    :       0 [0.00e+00 ~ 0.0%]
     
     Notes
     
@@ -741,7 +737,7 @@ Begin optimization report for: openParaviewVideoFile()
 
     Report from: Interprocedural optimizations [ipo]
 
-INLINE REPORT: (openParaviewVideoFile()) [32] step-1.5.cpp(139,30)
+INLINE REPORT: (openParaviewVideoFile()) [31] step-1.5.cpp(139,30)
   -> INLINE: (140,13) std::basic_ofstream<char, std::char_traits<char>>::open(std::basic_ofstream<char, std::char_traits<char>> *, const char *, std::ios_base::openmode)
      {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}
   -> (141,13) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
@@ -788,7 +784,7 @@ Begin optimization report for: closeParaviewVideoFile()
 
     Report from: Interprocedural optimizations [ipo]
 
-INLINE REPORT: (closeParaviewVideoFile()) [33] step-1.5.cpp(153,31)
+INLINE REPORT: (closeParaviewVideoFile()) [32] step-1.5.cpp(153,31)
   -> (154,13) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
   -> (155,13) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *)
   -> (155,29) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &))
@@ -827,78 +823,11 @@ step-1.5.cpp(153,31):remark #34051: REGISTER ALLOCATION : [_Z22closeParaviewVide
 
 ===========================================================================
 
-Begin optimization report for: updateBody()
-
-    Report from: Interprocedural optimizations [ipo]
-
-INLINE REPORT: (updateBody()) [34] step-1.5.cpp(202,19)
-  -> INLINE: (262,17) std::min<double>(const double &, const double &)
-  -> INLINE: (293,12) std::max<double>(const double &, const double &)
-
-
-    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
-
-
-LOOP BEGIN at step-1.5.cpp(211,3)
-   remark #15541: outer loop was not auto-vectorized: consider using SIMD directive
-
-   LOOP BEGIN at step-1.5.cpp(220,5)
-      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
-   LOOP END
-LOOP END
-
-LOOP BEGIN at step-1.5.cpp(269,3)
-   remark #15541: outer loop was not auto-vectorized: consider using SIMD directive
-
-   LOOP BEGIN at step-1.5.cpp(275,7)
-      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
-      remark #15346: vector dependence: assumed OUTPUT dependence between v[i][0] (276:9) and v[j][2] (282:9)
-   LOOP END
-LOOP END
-
-LOOP BEGIN at step-1.5.cpp(292,3)
-   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
-   remark #15346: vector dependence: assumed ANTI dependence between v[i][0] (293:5) and maxV (293:5)
-LOOP END
-
-    Report from: Code generation optimizations [cg]
-
-step-1.5.cpp(202,19):remark #34051: REGISTER ALLOCATION : [_Z10updateBodyv] step-1.5.cpp:202
-
-    Hardware registers
-        Reserved     :    2[ rsp rip]
-        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
-        Callee-save  :    6[ rbx rbp r12-r15]
-        Assigned     :   28[ rax rdx rcx rbx rbp rsi rdi r8-r15 zmm0-zmm12]
-        
-    Routine temporaries
-        Total         :     141
-            Global    :      34
-            Local     :     107
-        Regenerable   :       4
-        Spilled       :       6
-        
-    Routine stack
-        Variables     :       0 bytes*
-            Reads     :       0 [0.00e+00 ~ 0.0%]
-            Writes    :       0 [0.00e+00 ~ 0.0%]
-        Spills        :      24 bytes*
-            Reads     :       3 [1.74e-01 ~ 0.2%]
-            Writes    :       3 [1.09e-01 ~ 0.1%]
-    
-    Notes
-    
-        *Non-overlapping variables and spills may share stack space,
-         so the total stack size might be less than this.
-    
-
-===========================================================================
-
 Begin optimization report for: __sti__$E()
 
     Report from: Interprocedural optimizations [ipo]
 
-INLINE REPORT: (__sti__$E()) [145] <compiler generated>
+INLINE REPORT: (__sti__$E()) [141] <compiler generated>
   -> INLINE: /ddn/apps/Cluster-Apps/gcc/8.2.0/include/c++/8.2.0/iostream:(74,25) __sti__videoFile()
     -> INLINE: step-1.5.cpp:(133,15) std::basic_ofstream<char, std::char_traits<char>>::basic_ofstream(std::basic_ofstream<char, std::char_traits<char>> *const)
        {{ Inlining of routines from system headers is omitted. Use -qopt-report=3 to view full report. }}

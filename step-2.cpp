@@ -210,7 +210,7 @@ void updateBody() {
   int* toMerge = new int[NumberOfBodies];
 
   // Compute forces for each particle
-  #pragma omp simd
+  #pragma omp simd reduction(min:minDx)
   for (int i=0; i<NumberOfBodies; i++) {
     force[i] = new double*[i];
     distances[i] = new double[i];
@@ -238,17 +238,26 @@ void updateBody() {
         force[i][j][0] = (x[j][0]-x[i][0]) * mass[j]*mass[i] / distances[i][j] / distances[i][j] / distances[i][j] ;
         force[i][j][1] = (x[j][1]-x[i][1]) * mass[j]*mass[i] / distances[i][j] / distances[i][j] / distances[i][j] ;
         force[i][j][2] = (x[j][2]-x[i][2]) * mass[j]*mass[i] / distances[i][j] / distances[i][j] / distances[i][j] ;
+
+        // update minDx if required
+        minDx = std::min( minDx,distances[i][j] );
       }
     }
   }
 
+  // update positions
   #pragma omp simd
   for (int i=0; i<NumberOfBodies; i++) {
     if (merged[i] == -1) {
       x[i][0] = x[i][0] + timeStepSize * v[i][0];
       x[i][1] = x[i][1] + timeStepSize * v[i][1];
       x[i][2] = x[i][2] + timeStepSize * v[i][2];
+    }
+  }
 
+  // update velocities and merged particle positions
+  for (int i=0; i<NumberOfBodies; i++) {
+    if (merged[i] == -1) {
       for (int j=0; j<i; j++) {
         v[i][0] = v[i][0] + timeStepSize * force[i][j][0] / mass[i];
         v[i][1] = v[i][1] + timeStepSize * force[i][j][1] / mass[i];
@@ -258,11 +267,6 @@ void updateBody() {
           v[j][0] = v[j][0] - timeStepSize * force[i][j][0] / mass[j];
           v[j][1] = v[j][1] - timeStepSize * force[i][j][1] / mass[j];
           v[j][2] = v[j][2] - timeStepSize * force[i][j][2] / mass[j];
-        }
-        else {
-          x[j][0] = x[merged[j]][0];
-          x[j][1] = x[merged[j]][1];
-          x[j][2] = x[merged[j]][2];
         }
       }
     }
@@ -306,15 +310,17 @@ void updateBody() {
     }
   }
 
+  #pragma omp simd reduction(max:maxV)
   for (int i=0; i<NumberOfBodies; i++) {
     maxV = std::max(maxV, std::sqrt(v[i][0]*v[i][0] + v[i][1]*v[i][1] + v[i][2]*v[i][2]));
-    for (int j=0; j<i; j++) {
-      minDx = std::min( minDx,distances[i][j] );
-    }
   }
 
 
   t += timeStepSize;
+
+  delete[] force;
+  delete[] distances;
+  delete[] toMerge;
 }
 
 
