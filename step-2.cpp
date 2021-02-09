@@ -364,7 +364,7 @@ int main(int argc, char** argv) {
 
   int timeStepCounter = 0;
   while (t<=tFinal) {
-    +();
+    updateBody();
     timeStepCounter++;
     if (t >= tPlot) {
       printParaviewSnapshot();
