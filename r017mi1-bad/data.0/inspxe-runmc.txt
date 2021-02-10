@@ -1,0 +1,9 @@
+
+=== Start: [2021/02/10 18:24:33] === 
+Analysis started...
+Result file: /ddn/home/zrlr73/PSCI/r017mi1/r017mi1.inspxe 
+Application exit code: 139 
+Error: An internal error has occurred. Our apologies for this inconvenience. Please gather a description of the steps leading up to the problem and contact the Intel customer support team. 
+Result file: /ddn/home/zrlr73/PSCI/r017mi1/r017mi1.inspxe 
+Analysis terminated
+=== End: [2021/02/10 18:24:38] === 

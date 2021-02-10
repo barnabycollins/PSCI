@@ -33,5 +33,11 @@ clear-results:
 step-1.5:
 	icpc -qopt-report -fopenmp -O3 -xhost --std=c++0x step-1.5.cpp -o step-1.5.out
 
+debug-step-2:
+	icpc -O3 -xhost -g -fopenmp step-2.cpp -o step-2.p.out
+
+perf-conditions:
+	python3 create_initial_conditions.py --snapshots 0.0 --executable-name "step-2.p.out" --final-time 100 --dt 0.001 --min-mass 0.001 --max-mass 0.005 --N 8
+
 gen-call-tree:
 	gprof2dot -f callgrind $(PROFILEFILE) | dot -Tpng -o output.png

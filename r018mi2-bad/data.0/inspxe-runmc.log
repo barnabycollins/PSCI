@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log version="1.0" tool="runtool">
+
+<msg id="1" tool="runtool">
+  <type>log-start</type>
+  <arg>2021/02/10 18:25:52</arg>
+</msg>
+<msg id="2" tool="runtool">
+  <type>collector-starts</type>
+</msg>
+<msg id="3" tool="runtool">
+  <type>marker-file</type>
+  <arg>/ddn/home/zrlr73/PSCI/r018mi2/r018mi2.inspxe</arg>
+</msg>
+<msg id="4" tool="runtool">
+  <type>app-exit-code</type>
+  <arg>139</arg>
+</msg>
+<msg id="5" tool="runtool">
+  <type>internal-error-with-log</type>
+  <arg>/ddn/home/zrlr73/PSCI/r018mi2/data.0/inspxe-runmc.log</arg>
+  <description>pdr file not found</description>
+</msg>
+<msg id="6" tool="runtool">
+  <type>marker-file</type>
+  <arg>/ddn/home/zrlr73/PSCI/r018mi2/r018mi2.inspxe</arg>
+</msg>
+<msg id="7" tool="runtool">
+  <type>collector-aborted</type>
+</msg>
+<msg id="8" tool="runtool">
+  <type>log-end</type>
+  <arg>2021/02/10 18:25:56</arg>
+</msg>
+
+</log>
+

@@ -1,0 +1,49 @@
+# AMPLXE_PERF_STAT
+# hostname : cn7071.hpc.dur.ac.uk
+# os release : 3.10.0-327.36.3.el7.x86_64
+# arch : x86_64
+# cpuid : GenuineIntel,6,79,1
+# cpudesc : Intel(R) Xeon(R) CPU E5-2650 v4 @ 2.20GHz
+# total memory : 65534236 kB
+# nrcpus online : 24
+# nrcpus avail : 24
+# sibling cores : 0-11
+# sibling cores : 12-23
+# sibling threads : 0
+# sibling threads : 1
+# sibling threads : 2
+# sibling threads : 3
+# sibling threads : 4
+# sibling threads : 5
+# sibling threads : 6
+# sibling threads : 7
+# sibling threads : 8
+# sibling threads : 9
+# sibling threads : 10
+# sibling threads : 11
+# sibling threads : 12
+# sibling threads : 13
+# sibling threads : 14
+# sibling threads : 15
+# sibling threads : 16
+# sibling threads : 17
+# sibling threads : 18
+# sibling threads : 19
+# sibling threads : 20
+# sibling threads : 21
+# sibling threads : 22
+# sibling threads : 23
+# process id : 1363
+;;154721172012;0
+;;125903715388;1
+;;291607991806;2
+;;0;3
+;;0;4
+;;0;5
+;;246967387;6
+;;34213079;7
+;;28548522;8
+;;7334020527;9
+;;7614761897;10
+;;2079344;11
+;;387484829466;12

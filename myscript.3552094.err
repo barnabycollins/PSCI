@@ -1,0 +1,4 @@
+vtune: Collection started. To stop the collection, either press CTRL-C or enter from another console window: vtune -r /ddn/home/zrlr73/PSCI/r005hs -command stop.
+slurmstepd: error: Job 3552094 exceeded memory limit (50049520 > 49152000), being killed
+slurmstepd: error: Exceeded job memory limit
+slurmstepd: error: *** JOB 3552094 ON cn7053 CANCELLED AT 2021-02-10T17:28:03 ***
