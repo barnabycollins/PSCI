@@ -208,7 +208,9 @@ void updateBody() {
   double** distances = new double*[NumberOfBodies];
 
   int* toMerge = new int[NumberOfBodies];
-
+  
+  double** tempX = new double*[NumberOfBodies];
+  
   // Compute forces for each particle
   #pragma omp simd reduction(min:minDx)
   for (int i=0; i<NumberOfBodies; i++) {
@@ -238,78 +240,69 @@ void updateBody() {
         force[i][j][0] = (x[j][0]-x[i][0]) * mass[j]*mass[i] / distances[i][j] / distances[i][j] / distances[i][j] ;
         force[i][j][1] = (x[j][1]-x[i][1]) * mass[j]*mass[i] / distances[i][j] / distances[i][j] / distances[i][j] ;
         force[i][j][2] = (x[j][2]-x[i][2]) * mass[j]*mass[i] / distances[i][j] / distances[i][j] / distances[i][j] ;
-
-        // update minDx if required
-        minDx = std::min( minDx,distances[i][j] );
       }
     }
   }
 
-  double** tempV = new double*[NumberOfBodies];
-
+  // update positions
   #pragma omp simd
   for (int i=0; i<NumberOfBodies; i++) {
     if (merged[i] == -1) {
-      for (int j=0; j<i; j++) {
-        tempV[i][0] = v[i][0] + timeStepSize * force[i][j][0] / mass[i];
-        tempV[i][1] = v[i][1] + timeStepSize * force[i][j][1] / mass[i];
-        tempV[i][2] = v[i][2] + timeStepSize * force[i][j][2] / mass[i];
+      tempX[i] = new double[3];
 
-        if (merged[j] == -1) {
-          tempV[j][0] = v[j][0] - timeStepSize * force[i][j][0] / mass[j];
-          tempV[j][1] = v[j][1] - timeStepSize * force[i][j][1] / mass[j];
-          tempV[j][2] = v[j][2] - timeStepSize * force[i][j][2] / mass[j];
+      tempX[i][0] = x[i][0] + timeStepSize * v[i][0] / 2;
+      tempX[i][1] = x[i][1] + timeStepSize * v[i][1] / 2;
+      tempX[i][2] = x[i][2] + timeStepSize * v[i][2] / 2;
+    }
+  }
+  
+  // Compute forces for each particle
+  #pragma omp simd reduction(min:minDx)
+  for (int i=0; i<NumberOfBodies; i++) {
+    if (toMerge[i] == -1) {
+      for (int j=0; j<i; j++) {
+
+        // Filter out merged particles
+        if (toMerge[j] == -1) {
+          // Compute Euclidian distances to other particles (this is just pythag)
+          distances[i][j] = sqrt(
+            (tempX[i][0]-tempX[j][0]) * (tempX[i][0]-tempX[j][0]) +
+            (tempX[i][1]-tempX[j][1]) * (tempX[i][1]-tempX[j][1]) +
+            (tempX[i][2]-tempX[j][2]) * (tempX[i][2]-tempX[j][2])
+          );
+
+          // x,y,z forces acting on particle i
+          force[i][j][0] = (tempX[j][0]-tempX[i][0]) * mass[j]*mass[i] / distances[i][j] / distances[i][j] / distances[i][j] ;
+          force[i][j][1] = (tempX[j][1]-tempX[i][1]) * mass[j]*mass[i] / distances[i][j] / distances[i][j] / distances[i][j] ;
+          force[i][j][2] = (tempX[j][2]-tempX[i][2]) * mass[j]*mass[i] / distances[i][j] / distances[i][j] / distances[i][j] ;
+
+          // update minDx if required
+          minDx = std::min( minDx,distances[i][j] );
         }
       }
     }
   }
 
-  double** tempX = new double*[NumberOfBodies];
-
-  // update positions for half-step
+  // update positions
   #pragma omp simd
   for (int i=0; i<NumberOfBodies; i++) {
     if (merged[i] == -1) {
       tempX[i] = new double[3];
-      tempX[i][0] = x[i][0] + timeStepSize * tempV[i][0] / 2;
-      tempX[i][1] = x[i][1] + timeStepSize * tempV[i][1] / 2;
-      tempX[i][2] = x[i][2] + timeStepSize * tempV[i][2] / 2;
+
+      tempX[i][0] = x[i][0] + timeStepSize * v[i][0] / 2;
+      tempX[i][1] = x[i][1] + timeStepSize * v[i][1] / 2;
+      tempX[i][2] = x[i][2] + timeStepSize * v[i][2] / 2;
     }
   }
 
-  delete[] tempV;
 
-
-  // Compute forces for each particle
-  #pragma omp simd
-  for (int i=0; i<NumberOfBodies; i++) {
-    for (int j=0; j<i; j++) {
-
-      // Filter out merged particles
-      if (toMerge[j] == -1) {
-        // Compute Euclidian distances to other particles (this is just pythag)
-        distances[i][j] = sqrt(
-          (tempX[i][0]-tempX[j][0]) * (tempX[i][0]-tempX[j][0]) +
-          (tempX[i][1]-tempX[j][1]) * (tempX[i][1]-tempX[j][1]) +
-          (tempX[i][2]-tempX[j][2]) * (tempX[i][2]-tempX[j][2])
-        );
-
-        // x,y,z forces acting on particle i
-        force[i][j][0] = (x[j][0]-x[i][0]) * mass[j]*mass[i] / distances[i][j] / distances[i][j] / distances[i][j] ;
-        force[i][j][1] = (x[j][1]-x[i][1]) * mass[j]*mass[i] / distances[i][j] / distances[i][j] / distances[i][j] ;
-        force[i][j][2] = (x[j][2]-x[i][2]) * mass[j]*mass[i] / distances[i][j] / distances[i][j] / distances[i][j] ;
-      }
-    }
-  }
-
-  delete[] tempX;
 
   // update velocities and merged particle positions
   for (int i=0; i<NumberOfBodies; i++) {
     if (merged[i] == -1) {
       for (int j=0; j<i; j++) {
         v[i][0] = v[i][0] + timeStepSize * force[i][j][0] / mass[i];
-        v[i][1] = v[i][1] + timeStepSize * force[i][j][1] / mass[i];
+        v[i][1] = v[i][1] + timeStepSize * force[i][j][1] / mass[i];4
         v[i][2] = v[i][2] + timeStepSize * force[i][j][2] / mass[i];
 
         if (merged[j] == -1) {
