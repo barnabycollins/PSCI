@@ -16,13 +16,19 @@ debug-step-1:
 
 profile-step-1:
 	NAME = step-1.p.out
-	icpc -g3 -fopenmp -O0 -xhost --std=c++0x step-1.cpp -o $(NAME)
+	icpc -g3 -fopenmp -O3 -xhost --std=c++0x step-1.cpp -o $(NAME)
 	python create_initial_conditions.py $(CONDITIONS) --snapshots 0.0 --executable-name ./$(NAME)
 	chmod 777 ./$(NAME).sh
 
 profile-and-view: profile-step-1
 	valgrind --tool=callgrind `cat $(NAME).sh`
 	kcachegrind `find . -name "callgrind.out.*" -print0 | xargs -r -0 ls -1 -t | head -1`
+
+step-3:
+	icpc -fopenmp -O3 -xhost --std=c++0x step-3.cpp -o step-3.out
+	cp step-3.out /ddn/data/zrlr73/Tests3
+	icpc -fopenmp -O3 -xhost -g --std=c++0x step-3.cpp -o step-3.g.out
+	cp step-3.g.out /ddn/data/zrlr73/Tests3
 
 get-compiler-report:
 	icpc -qopt-report=5 -fopenmp -O3 -xhost --std=c++0x step-2.cpp -o step-2.out
