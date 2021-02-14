@@ -376,7 +376,7 @@ void updateBody() {
     maxV = std::max(maxV, std::sqrt(v[i][0]*v[i][0] + v[i][1]*v[i][1] + v[i][2]*v[i][2]));
   }
 
-  maxV = 69.420;
+  //maxV = 69.420;
 
   t += timeStepSize;
 }
