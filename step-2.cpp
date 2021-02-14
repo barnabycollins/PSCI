@@ -67,6 +67,8 @@ double C;
 
 int* merged;
 
+double*** force;
+
 /**
  * Set up scenario from the command line.
  *
@@ -87,6 +89,8 @@ void setUp(int argc, char** argv) {
   v    = new double*[NumberOfBodies];
   mass = new double [NumberOfBodies];
 
+  force = new double**[NumberOfBodies];
+
   merged = new int[NumberOfBodies];
 
   int readArgument = 1;
@@ -98,6 +102,12 @@ void setUp(int argc, char** argv) {
   for (int i=0; i<NumberOfBodies; i++) {
     x[i] = new double[3];
     v[i] = new double[3];
+    
+    force[i] = new double*[i];
+
+    for (int j=0; j<i; j++) {
+      force[i][j] = new double[3];
+    }
 
     merged[i] = -1;
 
@@ -203,44 +213,38 @@ void updateBody() {
   maxV   = 0.0;
   minDx  = std::numeric_limits<double>::max();
 
-  double*** force = new double**[NumberOfBodies];
-
-  double** distances = new double*[NumberOfBodies];
-
   int* toMerge = new int[NumberOfBodies];
 
   // Compute forces for each particle
   #pragma omp simd reduction(min:minDx)
   for (int i=0; i<NumberOfBodies; i++) {
-    force[i] = new double*[i];
-    distances[i] = new double[i];
     toMerge[i] = -1;
 
-    for (int j=0; j<i; j++) {
-      force[i][j] = new double[3];
+    if (merged[i] == -1) {
+      for (int j=0; j<i; j++) {
+        // Filter out merged particles
+        if (merged[j] == -1) {
+          // Compute Euclidian distances to other particles (this is just pythag)
+          double distance = sqrt(
+            (x[i][0]-x[j][0]) * (x[i][0]-x[j][0]) +
+            (x[i][1]-x[j][1]) * (x[i][1]-x[j][1]) +
+            (x[i][2]-x[j][2]) * (x[i][2]-x[j][2])
+          );
 
-      // Filter out merged particles
-      if (toMerge[j] == -1) {
-        // Compute Euclidian distances to other particles (this is just pythag)
-        distances[i][j] = sqrt(
-          (x[i][0]-x[j][0]) * (x[i][0]-x[j][0]) +
-          (x[i][1]-x[j][1]) * (x[i][1]-x[j][1]) +
-          (x[i][2]-x[j][2]) * (x[i][2]-x[j][2])
-        );
+          // If particles should be merged, merge them and skip computing forces
+          if (distance < (C * (mass[i] + mass[j]))) {
+            merged[i] = toMerge[i] = j;
+            continue;
+          }
 
-        // If particles should be merged, merge them and skip computing forces
-        if (distances[i][j] < (C * (mass[i] + mass[j]))) {
-          toMerge[i] = j;
-          continue;
+          // x,y,z forces acting on particle i
+          force[i][j][0] = (x[j][0]-x[i][0]) * mass[j]*mass[i] / distance / distance / distance;
+          force[i][j][1] = (x[j][1]-x[i][1]) * mass[j]*mass[i] / distance / distance / distance;
+          force[i][j][2] = (x[j][2]-x[i][2]) * mass[j]*mass[i] / distance / distance / distance;
+
+          // update minDx if required
+          minDx = std::min( minDx,distance );
         }
-
-        // x,y,z forces acting on particle i
-        force[i][j][0] = (x[j][0]-x[i][0]) * mass[j]*mass[i] / distances[i][j] / distances[i][j] / distances[i][j] ;
-        force[i][j][1] = (x[j][1]-x[i][1]) * mass[j]*mass[i] / distances[i][j] / distances[i][j] / distances[i][j] ;
-        force[i][j][2] = (x[j][2]-x[i][2]) * mass[j]*mass[i] / distances[i][j] / distances[i][j] / distances[i][j] ;
-
-        // update minDx if required
-        minDx = std::min( minDx,distances[i][j] );
       }
     }
   }
@@ -318,8 +322,6 @@ void updateBody() {
 
   t += timeStepSize;
 
-  delete[] force;
-  delete[] distances;
   delete[] toMerge;
 }
 

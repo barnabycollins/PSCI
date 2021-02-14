@@ -104,7 +104,7 @@ void setUp(int argc, char** argv) {
     v[i] = new double[3];
     
     force[i] = new double*[i];
-
+  
     for (int j=0; j<i; j++) {
       force[i][j] = new double[3];
     }
