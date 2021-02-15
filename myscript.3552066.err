@@ -1,3 +1,0 @@
-vtune: Collection started. To stop the collection, either press CTRL-C or enter from another console window: vtune -r /ddn/home/zrlr73/PSCI/r002hs -command stop.
-vtune: Collection failed.
-vtune: Internal Error
