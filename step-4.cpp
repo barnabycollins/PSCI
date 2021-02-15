@@ -104,7 +104,8 @@ void setUp(int argc, char** argv) {
     v[i] = new double[3];
     
     force[i] = new double*[i];
-  
+
+    #pragma omp simd
     for (int j=0; j<i; j++) {
       force[i][j] = new double[3];
     }
@@ -214,8 +215,6 @@ void updateBody() {
   minDx  = std::numeric_limits<double>::max();
 
   int* toMerge = new int[NumberOfBodies];
-
-  // BROKEN HERE
 
   // Compute forces for each particle
   #pragma omp parallel reduction(min:minDx)
@@ -351,6 +350,16 @@ void updateBody() {
     }
   }
 
+  // update positions
+  #pragma omp simd
+  for (int i=0; i<NumberOfBodies; i++) {
+    if (merged[i] == -1) {
+      x[i][0] = x[i][0] + timeStepSize * v[i][0];
+      x[i][1] = x[i][1] + timeStepSize * v[i][1];
+      x[i][2] = x[i][2] + timeStepSize * v[i][2];
+    }
+  }
+
   // update velocities and merged particle positions
   for (int i=0; i<NumberOfBodies; i++) {
     if (merged[i] == -1) {
@@ -442,7 +451,7 @@ int main(int argc, char** argv) {
     		    << ",\t time step=" << timeStepCounter
     		    << ",\t t="         << t
 				<< ",\t dt="        << timeStepSize
-				//<< ",\t v_max="     << maxV
+				<< ",\t v_max="     << maxV
 				<< ",\t dx_min="    << minDx
 				<< std::endl;
 
