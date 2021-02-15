@@ -104,7 +104,7 @@ void setUp(int argc, char** argv) {
     v[i] = new double[3];
     
     force[i] = new double*[i];
-
+  
     for (int j=0; j<i; j++) {
       force[i][j] = new double[3];
     }
@@ -215,12 +215,15 @@ void updateBody() {
 
   int* toMerge = new int[NumberOfBodies];
 
+  // BROKEN HERE
+
   // Compute forces for each particle
-  #pragma omp simd reduction(min:minDx)
+  #pragma omp parallel reduction(min:minDx)
   for (int i=0; i<NumberOfBodies; i++) {
     toMerge[i] = -1;
-
+    
     if (merged[i] == -1) {
+      #pragma omp simd reduction(min:minDx)
       for (int j=0; j<i; j++) {
         // Filter out merged particles
         if (merged[j] == -1) {
@@ -238,9 +241,9 @@ void updateBody() {
           }
 
           // x,y,z forces acting on particle i
-          force[i][j][0] = (x[j][0]-x[i][0]) * mass[j]*mass[i] / distance / distance / distance;
-          force[i][j][1] = (x[j][1]-x[i][1]) * mass[j]*mass[i] / distance / distance / distance;
-          force[i][j][2] = (x[j][2]-x[i][2]) * mass[j]*mass[i] / distance / distance / distance;
+          force[i][j][0] = (x[j][0]-x[i][0]) * mass[j]*mass[i] / distance / distance / distance ;
+          force[i][j][1] = (x[j][1]-x[i][1]) * mass[j]*mass[i] / distance / distance / distance ;
+          force[i][j][2] = (x[j][2]-x[i][2]) * mass[j]*mass[i] / distance / distance / distance ;
 
           // update minDx if required
           minDx = std::min( minDx,distance );
@@ -249,13 +252,102 @@ void updateBody() {
     }
   }
 
-  // update positions
+  bool foundMerge = true;
+  while (foundMerge) {
+    foundMerge = false;
+    for (int j=0; j<NumberOfBodies; j++) {
+      if (toMerge[j] != -1) {
+        int i = toMerge[j];
+
+        toMerge[j] = -1;
+
+        // Merge any particles that were merged to j into i
+        for (int k=0; k<NumberOfBodies; k++) {
+          if (toMerge[k] == j) {
+            toMerge[k] = i;
+          }
+        }
+
+        v[i][0] = mass[i] * v[i][0] / (mass[i] + mass[j])  +  mass[j] * v[j][0] / (mass[i] + mass[j]);
+        v[i][1] = mass[i] * v[i][1] / (mass[i] + mass[j])  +  mass[j] * v[j][1] / (mass[i] + mass[j]);
+        v[i][2] = mass[i] * v[i][2] / (mass[i] + mass[j])  +  mass[j] * v[j][2] / (mass[i] + mass[j]);
+
+        v[j][0] = v[j][1] = v[j][2] = 0;
+
+        mass[i] = mass[i] + mass[j];
+
+        x[i][0] = (mass[i] * x[i][0] + mass[j] * x[j][0]) / (mass[i] + mass[j]);
+        x[i][1] = (mass[i] * x[i][1] + mass[j] * x[j][1]) / (mass[i] + mass[j]);
+        x[i][2] = (mass[i] * x[i][2] + mass[j] * x[j][2]) / (mass[i] + mass[j]);
+
+        foundMerge = true;
+        break;
+      }
+    }
+  }
+  
+  delete[] toMerge;
+
+  double** tempV = new double*[NumberOfBodies];
+
+  for (int i=0; i<NumberOfBodies; i++) {
+    tempV[i] = new double[3];
+    
+    if (merged[i] == -1) {
+      for (int j=0; j<i; j++) {
+        if (merged[j] == -1) {
+
+          tempV[i][0] = v[i][0] + timeStepSize * force[i][j][0] / mass[i];
+          tempV[i][1] = v[i][1] + timeStepSize * force[i][j][1] / mass[i];
+          tempV[i][2] = v[i][2] + timeStepSize * force[i][j][2] / mass[i];
+
+          tempV[j][0] = v[j][0] - timeStepSize * force[i][j][0] / mass[j];
+          tempV[j][1] = v[j][1] - timeStepSize * force[i][j][1] / mass[j];
+          tempV[j][2] = v[j][2] - timeStepSize * force[i][j][2] / mass[j];
+        }
+      }
+    }
+  }
+
+  double** tempX = new double*[NumberOfBodies];
+
+  // update positions for half-step
+  #pragma omp simd
+  for (int i=0; i<NumberOfBodies; i++) {
+    tempX[i] = new double[3];
+    
+    if (merged[i] == -1) {
+      tempX[i][0] = x[i][0] + timeStepSize * tempV[i][0] / 2.0;
+      tempX[i][1] = x[i][1] + timeStepSize * tempV[i][1] / 2.0;
+      tempX[i][2] = x[i][2] + timeStepSize * tempV[i][2] / 2.0;
+    }
+
+    delete[] tempV[i];
+  }
+
+  delete[] tempV;
+
+  // Compute forces for each particle
   #pragma omp simd
   for (int i=0; i<NumberOfBodies; i++) {
     if (merged[i] == -1) {
-      x[i][0] = x[i][0] + timeStepSize * v[i][0];
-      x[i][1] = x[i][1] + timeStepSize * v[i][1];
-      x[i][2] = x[i][2] + timeStepSize * v[i][2];
+      for (int j=0; j<i; j++) {
+
+        // Filter out merged particles
+        if (merged[j] == -1) {
+          // Compute Euclidian distances to other particles (this is just pythag)
+          double distance = sqrt(
+            (tempX[i][0]-tempX[j][0]) * (tempX[i][0]-tempX[j][0]) +
+            (tempX[i][1]-tempX[j][1]) * (tempX[i][1]-tempX[j][1]) +
+            (tempX[i][2]-tempX[j][2]) * (tempX[i][2]-tempX[j][2])
+          );
+
+          // x,y,z forces acting on particle i
+          force[i][j][0] = (tempX[j][0]-tempX[i][0]) * mass[j]*mass[i] / distance / distance / distance;
+          force[i][j][1] = (tempX[j][1]-tempX[i][1]) * mass[j]*mass[i] / distance / distance / distance;
+          force[i][j][2] = (tempX[j][2]-tempX[i][2]) * mass[j]*mass[i] / distance / distance / distance;
+        }
+      }
     }
   }
 
@@ -279,40 +371,11 @@ void updateBody() {
       x[i][1] = x[merged[i]][1];
       x[i][2] = x[merged[i]][2];
     }
+
+    delete[] tempX[i];
   }
 
-  bool foundMerge = true;
-  while (foundMerge) {
-    foundMerge = false;
-    for (int j=0; j<NumberOfBodies; j++) {
-      if (toMerge[j] != -1) {
-        int i = toMerge[j];
-        merged[j] = i;
-
-        toMerge[j] = -1;
-
-        // Merge any particles that were merged to j into i
-        for (int k=0; k<NumberOfBodies; k++) {
-          if (toMerge[k] == j) {
-            toMerge[k] = i;
-          }
-        }
-
-        v[i][0] = mass[i] * v[i][0] / (mass[i] + mass[j])  +  mass[j] * v[j][0] / (mass[i] + mass[j]);
-        v[i][1] = mass[i] * v[i][1] / (mass[i] + mass[j])  +  mass[j] * v[j][1] / (mass[i] + mass[j]);
-        v[i][2] = mass[i] * v[i][2] / (mass[i] + mass[j])  +  mass[j] * v[j][2] / (mass[i] + mass[j]);
-
-        mass[i] = mass[i] + mass[j];
-
-        x[i][0] = (mass[i] * x[i][0] + mass[j] * x[j][0]) / (mass[i] + mass[j]);
-        x[i][1] = (mass[i] * x[i][1] + mass[j] * x[j][1]) / (mass[i] + mass[j]);
-        x[i][2] = (mass[i] * x[i][2] + mass[j] * x[j][2]) / (mass[i] + mass[j]);
-
-        foundMerge = true;
-        break;
-      }
-    }
-  }
+  delete[] tempX;
 
   #pragma omp simd reduction(max:maxV)
   for (int i=0; i<NumberOfBodies; i++) {
@@ -322,8 +385,6 @@ void updateBody() {
   maxV = std::sqrt(maxV);
 
   t += timeStepSize;
-
-  delete[] toMerge;
 }
 
 
@@ -381,7 +442,7 @@ int main(int argc, char** argv) {
     		    << ",\t time step=" << timeStepCounter
     		    << ",\t t="         << t
 				<< ",\t dt="        << timeStepSize
-				<< ",\t v_max="     << maxV
+				//<< ",\t v_max="     << maxV
 				<< ",\t dx_min="    << minDx
 				<< std::endl;
 

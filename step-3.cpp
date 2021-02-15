@@ -408,7 +408,7 @@ void updateBody() {
 
   #pragma omp simd reduction(max:maxV)
   for (int i=0; i<NumberOfBodies; i++) {
-    maxV = v[i][0]*v[i][0];
+    maxV = std::max(maxV, v[i][0]*v[i][0] + v[i][1]*v[i][1] + v[i][2]*v[i][2]);
   }
 
   // BROKEN HERE

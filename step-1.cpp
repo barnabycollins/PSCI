@@ -277,7 +277,7 @@ void updateBody() {
       v[i][1] = v[i][1] + timeStepSize * force1[i] / mass[i];
       v[i][2] = v[i][2] + timeStepSize * force2[i] / mass[i];
 
-      maxV = std::max(maxV, std::sqrt(v[i][0]*v[i][0] + v[i][1]*v[i][1] + v[i][2]*v[i][2]));
+      maxV = std::max(maxV, v[i][0]*v[i][0] + v[i][1]*v[i][1] + v[i][2]*v[i][2]);
     }
     else {
       x[i][0] = x[merges[i]][0];
@@ -286,6 +286,7 @@ void updateBody() {
     }
   }
 
+  maxV = std::sqrt(maxV);
 
   t += timeStepSize;
 
