@@ -25,28 +25,31 @@ profile-and-view: profile-step-1
 	kcachegrind `find . -name "callgrind.out.*" -print0 | xargs -r -0 ls -1 -t | head -1`
 
 step-1:
-	icpc -fopenmp -O3 -xhost --std=c++0x step-1.cpp -o step-1.out
-	cp step-1.out /ddn/data/zrlr73/Tests1
-	icpc -fopenmp -O3 -xhost -g --std=c++0x step-1.cpp -o step-1.g.out
-	cp step-1.g.out /ddn/data/zrlr73/Tests1
+	icpc -fopenmp -O3 -xhost --std=c++0x step-1.cpp -o builds/step-1.out
+	cp builds/step-1.out /ddn/data/zrlr73/Tests1
+	icpc -fopenmp -O3 -xhost -g --std=c++0x step-1.cpp -o builds/step-1.g.out
+	cp builds/step-1.g.out /ddn/data/zrlr73/Tests1
 
 step-2:
-	icpc -fopenmp -O3 -xhost --std=c++0x step-2.cpp -o step-2.out
-	cp step-2.out /ddn/data/zrlr73/Tests2
-	icpc -fopenmp -O3 -xhost -g --std=c++0x step-2.cpp -o step-2.g.out
-	cp step-2.g.out /ddn/data/zrlr73/Tests2
+	icpc -fopenmp -O3 -xhost --std=c++0x step-2.cpp -o builds/step-2.out
+	cp builds/step-2.out /ddn/data/zrlr73/Tests2
+	icpc -fopenmp -O3 -xhost -g --std=c++0x step-2.cpp -o builds/step-2.g.out
+	cp builds/step-2.g.out /ddn/data/zrlr73/Tests2
 
 step-3:
-	icpc -fopenmp -O3 -xhost --std=c++0x step-3.cpp -o step-3.out
-	cp step-3.out /ddn/data/zrlr73/Tests3
-	icpc -fopenmp -O3 -xhost -g --std=c++0x step-3.cpp -o step-3.g.out
-	cp step-3.g.out /ddn/data/zrlr73/Tests3
+	icpc -fopenmp -O3 -xhost --std=c++0x step-3.cpp -o builds/step-3.out
+	cp builds/step-3.out /ddn/data/zrlr73/Tests3
+	icpc -fopenmp -O3 -xhost -g --std=c++0x step-3.cpp -o builds/step-3.g.out
+	cp builds/step-3.g.out /ddn/data/zrlr73/Tests3
 
 step-4:
-	icpc -fopenmp -O3 -xhost --std=c++0x step-4.cpp -o step-4.out
-	cp step-4.out /ddn/data/zrlr73/Tests4
-	icpc -fopenmp -O3 -xhost -g --std=c++0x step-4.cpp -o step-4.g.out
-	cp step-4.g.out /ddn/data/zrlr73/Tests4
+	icpc -fopenmp -O3 -xhost --std=c++0x step-4.cpp -o builds/step-4.out
+	cp builds/step-4.out /ddn/data/zrlr73/Tests4
+	icpc -fopenmp -O3 -xhost -g --std=c++0x step-4.cpp -o builds/step-4.g.out
+	cp builds/step-4.g.out /ddn/data/zrlr73/Tests4
+
+clean:
+	mv *.optrpt builds/
 
 get-compiler-report:
 	icpc -qopt-report=5 -fopenmp -O3 -xhost --std=c++0x step-2.cpp -o step-2.out
