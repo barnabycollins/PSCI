@@ -67,6 +67,10 @@ double C;
 
 int* merges;
 
+double* force0;
+double* force1;
+double* force2;
+
 /**
  * Set up scenario from the command line.
  *
@@ -88,6 +92,13 @@ void setUp(int argc, char** argv) {
   x    = new double*[NumberOfBodies];
   v    = new double*[NumberOfBodies];
   mass = new double [NumberOfBodies];
+
+  // force0 = force along x direction
+  // force1 = force along y direction
+  // force2 = force along z direction
+  force0 = new double[NumberOfBodies];
+  force1 = new double[NumberOfBodies];
+  force2 = new double[NumberOfBodies];
 
   int readArgument = 1;
 
@@ -203,13 +214,6 @@ void updateBody() {
   maxV   = 0.0;
   minDx  = std::numeric_limits<double>::max();
 
-  // force0 = force along x direction
-  // force1 = force along y direction
-  // force2 = force along z direction
-  double* force0 = new double[NumberOfBodies];
-  double* force1 = new double[NumberOfBodies];
-  double* force2 = new double[NumberOfBodies];
-
   // Compute forces for each particle
   for (int i=0; i<NumberOfBodies; i++) {
 
@@ -289,10 +293,6 @@ void updateBody() {
   maxV = std::sqrt(maxV);
 
   t += timeStepSize;
-
-  delete[] force0;
-  delete[] force1;
-  delete[] force2;
 }
 
 

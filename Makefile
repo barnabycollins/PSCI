@@ -30,6 +30,10 @@ step-1:
 	icpc -fopenmp -O3 -xhost -g --std=c++0x step-1.cpp -o builds/step-1.g.out
 	cp builds/step-1.g.out /ddn/data/zrlr73/Tests1
 
+step-1-c:
+	icpc -fopenmp -O3 -xhost --std=c++0x step-1-convergence.cpp -o builds/step-1.out
+	cp builds/step-1.out /ddn/data/zrlr73/Tests1
+
 step-2:
 	icpc -fopenmp -O3 -xhost --std=c++0x step-2.cpp -o builds/step-2.out
 	cp builds/step-2.out /ddn/data/zrlr73/Tests2
@@ -41,6 +45,10 @@ step-3:
 	cp builds/step-3.out /ddn/data/zrlr73/Tests3
 	icpc -fopenmp -O3 -xhost -g --std=c++0x step-3.cpp -o builds/step-3.g.out
 	cp builds/step-3.g.out /ddn/data/zrlr73/Tests3
+
+step-3-c:
+	icpc -fopenmp -O3 -xhost --std=c++0x step-3-convergence.cpp -o builds/step-3.out
+	cp builds/step-3.out /ddn/data/zrlr73/Tests3
 
 step-4:
 	icpc -fopenmp -O3 -xhost --std=c++0x step-4.cpp -o builds/step-4.out
