@@ -216,8 +216,6 @@ void updateBody() {
 
   int* toMerge = new int[NumberOfBodies];
 
-  // BROKEN HERE
-
   // Compute forces for each particle
   #pragma omp simd reduction(min:minDx)
   for (int i=0; i<NumberOfBodies; i++) {
@@ -268,20 +266,11 @@ void updateBody() {
           }
         }
 
-        // PROBABLY NOT BROKEN HERE
-
         v[i][0] = mass[i] * v[i][0] / (mass[i] + mass[j])  +  mass[j] * v[j][0] / (mass[i] + mass[j]);
         v[i][1] = mass[i] * v[i][1] / (mass[i] + mass[j])  +  mass[j] * v[j][1] / (mass[i] + mass[j]);
         v[i][2] = mass[i] * v[i][2] / (mass[i] + mass[j])  +  mass[j] * v[j][2] / (mass[i] + mass[j]);
 
-        // v[i] PROBABLY NOT BROKEN HERE
-
         v[j][0] = v[j][1] = v[j][2] = 0;
-
-        // PROBABLY NOT BROKEN HERE
-        
-        //printf("%f", v[i][0]);
-        //printf("%f", v[j][0]);
 
         mass[i] = mass[i] + mass[j];
 
@@ -305,12 +294,6 @@ void updateBody() {
     if (merged[i] == -1) {
       for (int j=0; j<i; j++) {
         if (merged[j] == -1) {
-          /*try {
-            printf("%f", v[i][0]);
-          }
-          catch (std::exception &e) {
-            printf("\n\nBROKEN:\n%f\n%f\n%f\n%f\n\n", i, j, merged[i], merged[j]);
-          }*/
 
           tempV[i][0] = v[i][0] + timeStepSize * force[i][j][0] / mass[i];
           tempV[i][1] = v[i][1] + timeStepSize * force[i][j][1] / mass[i];
@@ -319,8 +302,6 @@ void updateBody() {
           tempV[j][0] = v[j][0] - timeStepSize * force[i][j][0] / mass[j];
           tempV[j][1] = v[j][1] - timeStepSize * force[i][j][1] / mass[j];
           tempV[j][2] = v[j][2] - timeStepSize * force[i][j][2] / mass[j];
-
-          //printf("%f", tempV[i][0]);
         }
       }
     }
@@ -334,10 +315,6 @@ void updateBody() {
     tempX[i] = new double[3];
     
     if (merged[i] == -1) {
-      //printf("%f", x[i][0]);
-      //printf("%f", timeStepSize);
-      //printf("%f", tempV[i][0]);
-
       tempX[i][0] = x[i][0] + timeStepSize * tempV[i][0] / 2.0;
       tempX[i][1] = x[i][1] + timeStepSize * tempV[i][1] / 2.0;
       tempX[i][2] = x[i][2] + timeStepSize * tempV[i][2] / 2.0;
@@ -363,9 +340,6 @@ void updateBody() {
             (tempX[i][2]-tempX[j][2]) * (tempX[i][2]-tempX[j][2])
           );
 
-          //printf("%f", tempX[i][0]);
-          //printf("%f", distance);
-
           // x,y,z forces acting on particle i
           force[i][j][0] = (tempX[j][0]-tempX[i][0]) * mass[j]*mass[i] / distance / distance / distance;
           force[i][j][1] = (tempX[j][1]-tempX[i][1]) * mass[j]*mass[i] / distance / distance / distance;
@@ -389,20 +363,14 @@ void updateBody() {
   for (int i=0; i<NumberOfBodies; i++) {
     if (merged[i] == -1) {
       for (int j=0; j<i; j++) {
-        // PROBABLY NOT BROKEN HERE
-
         v[i][0] = v[i][0] + timeStepSize * force[i][j][0] / mass[i];
         v[i][1] = v[i][1] + timeStepSize * force[i][j][1] / mass[i];
         v[i][2] = v[i][2] + timeStepSize * force[i][j][2] / mass[i];
-
-        // BROKEN HERE
 
         if (merged[j] == -1) {
           v[j][0] = v[j][0] - timeStepSize * force[i][j][0] / mass[j];
           v[j][1] = v[j][1] - timeStepSize * force[i][j][1] / mass[j];
           v[j][2] = v[j][2] - timeStepSize * force[i][j][2] / mass[j];
-
-          // BROKEN HERE
         }
       }
     }
@@ -422,13 +390,7 @@ void updateBody() {
     maxV = std::max(maxV, v[i][0]*v[i][0] + v[i][1]*v[i][1] + v[i][2]*v[i][2]);
   }
 
-  // BROKEN HERE
-
   maxV = std::sqrt(maxV);
-
-  // BROKEN HERE
-
-  //maxV = 69.420;
 
   t += timeStepSize;
 }
@@ -488,7 +450,7 @@ int main(int argc, char** argv) {
     		    << ",\t time step=" << timeStepCounter
     		    << ",\t t="         << t
 				<< ",\t dt="        << timeStepSize
-				//<< ",\t v_max="     << maxV
+				<< ",\t v_max="     << maxV
 				<< ",\t dx_min="    << minDx
 				<< std::endl;
 
