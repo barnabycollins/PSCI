@@ -65,7 +65,7 @@ double   minDx;
 
 double C;
 
-int* merges;
+int* merged;
 
 double* force0;
 double* force1;
@@ -87,7 +87,7 @@ void setUp(int argc, char** argv) {
 
   C = 0.01 * NumberOfBodies;
   
-  merges = new int[NumberOfBodies];
+  merged = new int[NumberOfBodies];
 
   x    = new double*[NumberOfBodies];
   v    = new double*[NumberOfBodies];
@@ -110,7 +110,7 @@ void setUp(int argc, char** argv) {
     x[i] = new double[3];
     v[i] = new double[3];
 
-    merges[i] = -1;
+    merged[i] = -1;
 
     x[i][0] = std::stof(argv[readArgument]); readArgument++;
     x[i][1] = std::stof(argv[readArgument]); readArgument++;
@@ -220,7 +220,7 @@ void updateBody() {
   for (int i=0; i<NumberOfBodies; i++) {
 
     // If this particle has been merged, don't compute its force
-    if (merges[i] != -1) {
+    if (merged[i] != -1) {
       continue;
     }
 
@@ -230,7 +230,7 @@ void updateBody() {
 
     for (int j=0; j<NumberOfBodies; j++) {
       // Filter out the current particle and merged particles
-      if (j != i && merges[j] == -1) {
+      if (j != i && merged[j] == -1) {
         // Compute Euclidian distances to other particles (this is just pythag)
         // Could stand to be pre-computed
         const double distance = sqrt(
@@ -243,12 +243,12 @@ void updateBody() {
         if (distance < (C * (mass[i] + mass[j]))) {
           haveMerged = true;
 
-          merges[j] = i;
+          merged[j] = i;
 
           // Merge any particles that were merged to k into i
           for (int k=0; k<NumberOfBodies; k++) {
-            if (merges[k] == j) {
-              merges[k] = i;
+            if (merged[k] == j) {
+              merged[k] = i;
             }
           }
 
@@ -276,7 +276,7 @@ void updateBody() {
   }
 
   for (int i=0; i<NumberOfBodies; i++) {
-    if (merges[i] == -1) {
+    if (merged[i] == -1) {
       x[i][0] = x[i][0] + timeStepSize * v[i][0];
       x[i][1] = x[i][1] + timeStepSize * v[i][1];
       x[i][2] = x[i][2] + timeStepSize * v[i][2];
@@ -288,9 +288,9 @@ void updateBody() {
       maxV = std::max(maxV, v[i][0]*v[i][0] + v[i][1]*v[i][1] + v[i][2]*v[i][2]);
     }
     else {
-      x[i][0] = x[merges[i]][0];
-      x[i][1] = x[merges[i]][1];
-      x[i][2] = x[merges[i]][2];
+      x[i][0] = x[merged[i]][0];
+      x[i][1] = x[merged[i]][1];
+      x[i][2] = x[merged[i]][2];
     }
   }
 
@@ -366,7 +366,14 @@ int main(int argc, char** argv) {
     }
   }
 
-  std::cout << "Number of remaining objects: " << NumberOfBodies << std::endl;
+  int remainingBodies = 0;
+  for (int i=0; i<NumberOfBodies; i++) {
+    if (merged[i] == -1) {
+      remainingBodies++;
+    }
+  }
+
+  std::cout << "Number of remaining objects: " << remainingBodies << std::endl;
   std::cout << "Position of first remaining object: " << x[0][0] << ", " << x[0][1] << ", " << x[0][2] << std::endl;
 
   closeParaviewVideoFile();

@@ -1,4 +1,4 @@
-all: profile-and-view
+all: step-1 step-2 step-3 step-4
 
 CONDITIONS = --final-time 100 --snapshots 0.01 --dt 0.001 --min-mass 0.001 --max-mass 0.005 --N 4
 
@@ -53,7 +53,7 @@ step-3-c:
 step-4:
 	icpc -fopenmp -O3 -xhost --std=c++0x step-4.cpp -o builds/step-4.out
 	cp builds/step-4.out /ddn/data/zrlr73/Tests4
-	icpc -fopenmp -O3 -xhost -g -qopt-report --std=c++0x step-4.cpp -o builds/step-4.g.out
+	icpc -fopenmp -O3 -xhost -g --std=c++0x step-4.cpp -o builds/step-4.g.out
 	cp builds/step-4.g.out /ddn/data/zrlr73/Tests4
 
 clean:

@@ -458,7 +458,14 @@ int main(int argc, char** argv) {
     }
   }
 
-  std::cout << "Number of remaining objects: " << NumberOfBodies << std::endl;
+  int remainingBodies = 0;
+  for (int i=0; i<NumberOfBodies; i++) {
+    if (merged[i] == -1) {
+      remainingBodies++;
+    }
+  }
+
+  std::cout << "Number of remaining objects: " << remainingBodies << std::endl;
   std::cout << "Position of first remaining object: " << x[0][0] << ", " << x[0][1] << ", " << x[0][2] << std::endl;
 
   closeParaviewVideoFile();
