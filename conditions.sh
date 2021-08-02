@@ -1,1 +1,0 @@
-python create_initial_conditions.py --final-time 10 --snapshots .01 --dt 0.001 --executable-name ./a.out --min-mass 10 --max-mass 50 --N 2 --scenario random-grid
